@@ -14,7 +14,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class AddSubject {
+public class AddSubject extends Stage {
 
 	public AddSubject(Stage primaryStage,Student student)
 	{
@@ -44,15 +44,13 @@ public class AddSubject {
 			public void handle(ActionEvent e)
 			{
 				new add();
-			}
-			
-			
+			}	
 		});
 		hboxz.getChildren().add(AddButton);
 		hbox.getChildren().add(labelsubjects);
 		VBox vbox = new VBox();
 		vbox.getChildren().addAll(hboz,hbox,list,hboxz);
-		primaryStage.setScene(new Scene(vbox, 300, 300));
+		primaryStage.setScene(new Scene(vbox, 500, 500));
 		primaryStage.show();;
 	
 	}

@@ -9,8 +9,7 @@ public class Student
 	protected String name;
 	protected String ID;
 	protected String year;
-	protected boolean payment;
-	protected Subject sub;
+	protected SubjectCollection sub;
 	
 	public Student()
 	{
@@ -31,10 +30,7 @@ public class Student
 	{
 		this.ID = ID;
 	}
-	public void setStudentSubject(Subject sub)
-	{
-		this.sub = sub;
-	}
+	
 	public void setyear(String year)
 	{
 		this.year = year;
