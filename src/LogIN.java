@@ -33,6 +33,7 @@ public class LogIN extends Application
 	{
 		
 		thestage=primaryStage;
+		primaryStage.setTitle("UPSR TUITION MANAGEMENT SYSTEM");
 		primaryStage.show();
 		DropShadow ds = new DropShadow();
 		ds.setOffsetY(3.0f);
@@ -66,10 +67,10 @@ public class LogIN extends Application
 							{
 								
 							try{
-								new AddSubject();
+								new ChooseStudent(primaryStage);
 							}
 							catch(Exception ex){
-								System.out.println("Could not move to next scene");
+								System.out.println(ex);
 							}
 								i=5;
 							}

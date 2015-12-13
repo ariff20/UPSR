@@ -1,4 +1,3 @@
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -7,16 +6,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-public class ChooseStudent extends Application
+public class ChooseStudent 
 {
 	TableView<Student> table;
-/*	public static void main(String[] args) 
-	{
-		launch(args);
-	}
-*/
-		@Override
-	public void init()
+
+		
+	public ChooseStudent(Stage primaryStage)
 	{
 		table = new TableView<Student>();
 		table.getColumns().addAll(Student.getColumn(table));
@@ -30,15 +25,11 @@ public class ChooseStudent extends Application
 							{
 								if(table.getSelectionModel().getSelectedIndex()>=0)
 								{
-									System.out.println(table.getSelectionModel().getSelectedItem().getName());
+									 new AddSubject(primaryStage,table.getSelectionModel().getSelectedItem());
 								}
 							}
 						}
 				});
-	}
-	@Override
-	public void start(Stage primaryStage) throws Exception
-	{
 		VBox vb = new VBox();
 		vb.getChildren().addAll(table);
 		Scene scene2 = new Scene(vb,800,500);
