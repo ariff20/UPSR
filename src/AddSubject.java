@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -13,6 +14,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class AddSubject extends Stage {
 
@@ -33,9 +35,35 @@ public class AddSubject extends Stage {
 		hboz.setSpacing(30);
 		HBox hbox = new HBox();
 		Label labelsubjects = new Label("Subjects : ");
-		ListView<String> list = new ListView<String>();
-		ObservableList<String> items =FXCollections.observableArrayList ("null");
+		
+		ListView<Subject> list = new ListView<Subject>();
+		ObservableList<Subject> items = FXCollections.observableArrayList(student.collectionz);
 		list.setItems(items);
+	    list.setCellFactory(new Callback<ListView<Subject>, ListCell<Subject>>(){
+	 
+	            @Override
+	            public ListCell<Subject> call(ListView<Subject> p) 
+	            {
+	                 
+	                ListCell<Subject> cell = new ListCell<Subject>(){
+	 
+	                    @Override
+	                    protected void updateItem(Subject t, boolean bln) {
+	                        super.updateItem(t, bln);
+	                        if (t != null) {
+	                        	for (int i = 0; i < 5; i++)
+	                    		{
+	                        		System.out.print(student.collectionz);
+	                        		setText(t.getName());
+	                    		}
+	                        }
+	                    }
+	 
+	                };
+	                 
+	                return cell;
+	            }
+	        });
 		HBox hboxz = new HBox();
 		Button AddButton = new Button("ADD");
 		AddButton.setOnAction(new EventHandler<ActionEvent>()

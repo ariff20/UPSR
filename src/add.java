@@ -39,7 +39,8 @@ public class add extends Stage
 	
 	public add()
 	{
-		this.setTitle("ADD YOUR SUBJECT");
+		Stage addStage = new Stage();
+		addStage.setTitle("ADD YOUR SUBJECT");
 		t.setX(10.0f);
 		t.setY(50.0f);
 		t.setCache(true);
@@ -79,8 +80,9 @@ public class add extends Stage
 			@Override
 			public void handle(ActionEvent e)
 			{
-				SubjectCollection addsubject = new SubjectCollection();
+				Student addsubject = new Student();
 				addsubject.addSubject(comboBox.getValue());
+				addStage.close();
 			}	
 		});
 		cancel.setOnAction(new EventHandler<ActionEvent>()
@@ -88,7 +90,8 @@ public class add extends Stage
 			@Override
 			public void handle(ActionEvent e)
 			{
-				System.exit(0);
+				addStage.close();
+				
 			}	
 		});
 		HBox hbox1 = new HBox();
@@ -99,8 +102,8 @@ public class add extends Stage
 		hbox2.getChildren().addAll(addsubject,comboBox);
 		hbox3.getChildren().addAll(ok,cancel);
 		vbox.getChildren().addAll(hbox1,hbox2,hbox3);
-		this.setScene(new Scene(vbox, 700, 700));
-	    this.show();
+		addStage.setScene(new Scene(vbox, 700, 700));
+	    addStage.show();
 	}
 	
 	//Scene scenez = new Scene()

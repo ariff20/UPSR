@@ -12,19 +12,20 @@ public class Subject
 		this.code = code;
 		this.teacher = teacher;
 		this.price = price;
-		stud = null;
+		
+	}
+	public Subject(Subject sub)
+	{
+		this.name = sub.getName();
+		this.code = sub.getCode();
+		this.teacher = sub.getTeacher();
+		this.price = sub.getPrice();
 	}
 	public void setname(String name)
 	{
 		this.name = name;
 	}
-	public void setStudent(Student stud)
-	{
-		if(this.stud != null)
-		{
-			
-		}
-	}
+	
 	public void setprice(double price)
 	{
 		this.price = price;
@@ -55,7 +56,7 @@ public class Subject
 	}
 	public String toString()
 	{
-		return "Subjects : " + code + " " + name + "\nPrice : " + price + "\nTeacher : " + teacher;
+		return "Name : " + name +"\n"+ "Code : " + code +"\n"+ "Teacher : " + teacher +"\n" + "Price : " + price;
 	}
 	
 }

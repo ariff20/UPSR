@@ -1,7 +1,7 @@
 
 public class SubjectCollection
 {
-	private Subject[] collectionz;
+	protected Subject[] collectionz;
 	private int count;
 	
 	public SubjectCollection()
@@ -9,11 +9,7 @@ public class SubjectCollection
 		collectionz = new Subject[5];
 		count = 0;
 	}
-	public void addSubject(Subject subject)
-	{
-		collectionz[count] = subject;
-		count++; 
-	}
+	
 	public String toString()
 	{
 		String report = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";

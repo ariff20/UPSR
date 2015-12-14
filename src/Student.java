@@ -9,7 +9,7 @@ public class Student
 	protected String name;
 	protected String ID;
 	protected String year;
-	protected SubjectCollection sub;
+	protected ArrayList<Subject> collectionz = new ArrayList<Subject>();
 	
 	public Student()
 	{
@@ -19,12 +19,17 @@ public class Student
 	{
 		this.name = name;
 		this.ID = ID;
-		this.year = year;
-		sub = null;
+		this.year = year;	
 	}
 	public void setName(String name)
 	{
 		this.name = name;
+	}
+	public void addSubject(Subject subject)
+	{
+		int i=0;
+		collectionz.add(new Subject(subject));
+		i++;
 	}
 	public void setID(String ID)
 	{
