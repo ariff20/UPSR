@@ -26,7 +26,6 @@ public class LogIN extends Application
 	public static void main(String[] args) 
 	{
 		launch(args);
-
 	}
 
 	public void start(Stage primaryStage) throws Exception 
@@ -59,26 +58,20 @@ public class LogIN extends Application
 					@Override
 					public void handle(ActionEvent arg0)
 					{
-						
+						boolean confirm = false;
 						for(int i = 0;i<4;i++)
 						{
 							
 							if (textField.getText().equals(StaffID[i]) && pb.getText().equals(StaffPassword[i]))
 							{
-								
-							try{
-								new ChooseStudent(primaryStage);
-							}
-							catch(Exception ex){
-								System.out.println(ex);
-							}
-								i=5;
-							}
-							else
-							{
-								JOptionPane.showMessageDialog(null, "Wrong username or password");
+								confirm = true;
+								break;
 							}
 						}
+						if (confirm)
+							new ChooseStudent(primaryStage);
+						else
+							JOptionPane.showMessageDialog(null, "Wrong username or password");
 					}
 			
 				});

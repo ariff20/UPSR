@@ -37,7 +37,7 @@ public class add extends Stage
 	}
 	
 	
-	public add()
+	public add(Student student)
 	{
 		Stage addStage = new Stage();
 		addStage.setTitle("ADD YOUR SUBJECT");
@@ -80,8 +80,8 @@ public class add extends Stage
 			@Override
 			public void handle(ActionEvent e)
 			{
-				Student addsubject = new Student();
-				addsubject.addSubject(comboBox.getValue());
+				System.out.print(comboBox.getValue().toString());
+				student.addSubject(comboBox.getValue());
 				addStage.close();
 			}	
 		});

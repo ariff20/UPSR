@@ -1,4 +1,6 @@
-//import javafx.application.Application;
+
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -6,7 +8,6 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -14,15 +15,33 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 public class AddSubject extends Stage {
 
-	public AddSubject(Stage primaryStage,Student student)
+	private Student student;
+	protected ListProperty<Subject> listProperty = new SimpleListProperty<>();
+	ObservableList<Student> data;
+	public static ObservableList<Subject> getSubjectDummy()
 	{
+		ObservableList<Subject> suboptions = FXCollections.observableArrayList();
+	    suboptions.addAll(new Subject("Bahasa Malaysia","BM501","Cikgu Arissa",55.50));
+	    suboptions.addAll(new Subject("English","ENG101","Teacher Muthu",52.50));
+	    suboptions.addAll(new Subject("Mathematics","MAT101","Ramu",62.50));
+	    
+	    return suboptions;
 		
+	}
+	
+	public AddSubject(Stage primaryStage,Student student, ObservableList<Student> data)
+	{
+		this.data = data;
+		this.student = student;
+		VBox vbox = new VBox();
 		HBox hboz = new HBox();
+		HBox hboy = new HBox();
 		Label labelname = new Label("Name : ");
+		Label labeltotsubjects = new Label ("Total Subjects : " + student.collectionz.size());
+		Label labeltotprice = new Label("Total Fee : " + student.getTotalFee());
 		Text studentname = new Text(student.getName());
 		studentname.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
 		Label labelID = new Label("ID : ");
@@ -35,49 +54,53 @@ public class AddSubject extends Stage {
 		hboz.setSpacing(30);
 		HBox hbox = new HBox();
 		Label labelsubjects = new Label("Subjects : ");
-		
+		Button backbutton = new Button("BACK");
 		ListView<Subject> list = new ListView<Subject>();
-		ObservableList<Subject> items = FXCollections.observableArrayList(student.collectionz);
-		list.setItems(items);
-	    list.setCellFactory(new Callback<ListView<Subject>, ListCell<Subject>>(){
-	 
-	            @Override
-	            public ListCell<Subject> call(ListView<Subject> p) 
-	            {
-	                 
-	                ListCell<Subject> cell = new ListCell<Subject>(){
-	 
-	                    @Override
-	                    protected void updateItem(Subject t, boolean bln) {
-	                        super.updateItem(t, bln);
-	                        if (t != null) {
-	                        	for (int i = 0; i < 5; i++)
-	                    		{
-	                        		System.out.print(student.collectionz);
-	                        		setText(t.getName());
-	                    		}
-	                        }
-	                    }
-	 
-	                };
-	                 
-	                return cell;
-	            }
-	        });
+		list.itemsProperty().bind(listProperty);
+		listProperty.set(FXCollections.observableArrayList(student.collectionz));
 		HBox hboxz = new HBox();
 		Button AddButton = new Button("ADD");
+		backbutton.setOnAction(new EventHandler<ActionEvent>()
+				{
+					@Override
+					public void handle(ActionEvent e)
+				{
+					for (int  i = 0; i  < data.size(); i++) {
+						if (data.get(i).getName() == student.getName()) {
+							data.set(i, student);
+							break;
+						}
+					}
+					 new ChooseStudent(primaryStage, data);
+				}	
+			
+			
+			
+				});
+		Button RefreshButton = new Button("REFRESH");
+		RefreshButton.setOnAction(new EventHandler<ActionEvent>()
+				{
+					@Override
+						public void handle(ActionEvent e)
+					{
+						listProperty.set(FXCollections.observableArrayList(student.collectionz));
+						labeltotsubjects.setText("Total Subjects : " + student.collectionz.size());
+						labeltotprice.setText("Total Fee : " + student.getTotalFee());
+					}	
+				});
 		AddButton.setOnAction(new EventHandler<ActionEvent>()
 		{
 			@Override
 			public void handle(ActionEvent e)
 			{
-				new add();
+				new add(student);
 			}	
 		});
-		hboxz.getChildren().add(AddButton);
+		hboy.getChildren().addAll(labeltotsubjects,labeltotprice);
+		hboy.setSpacing(15);
+		hboxz.getChildren().addAll(AddButton,RefreshButton,backbutton);
 		hbox.getChildren().add(labelsubjects);
-		VBox vbox = new VBox();
-		vbox.getChildren().addAll(hboz,hbox,list,hboxz);
+		vbox.getChildren().addAll(hboz,hbox,list,hboy,hboxz);
 		primaryStage.setScene(new Scene(vbox, 500, 500));
 		primaryStage.show();;
 	

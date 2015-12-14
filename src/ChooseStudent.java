@@ -1,21 +1,36 @@
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 public class ChooseStudent 
 {
 	TableView<Student> table;
+	Student student;
+	ObservableList<Student> data = FXCollections.observableArrayList();
+	
+	
 
-		
-	public ChooseStudent(Stage primaryStage)
+	public ChooseStudent(Stage primaryStage, ObservableList<Student> data)
 	{
+		
+		this.student = student;
+		this.data = data;
 		table = new TableView<Student>();
 		table.getColumns().addAll(Student.getColumn(table));
-		table.setItems(getStudentDummy());
+		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		table.setItems(data);
 		table.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>()
 				{
 						@Override
@@ -25,21 +40,90 @@ public class ChooseStudent
 							{
 								if(table.getSelectionModel().getSelectedIndex()>=0)
 								{
-									 new AddSubject(primaryStage,table.getSelectionModel().getSelectedItem());
+									 new AddSubject(primaryStage,table.getSelectionModel().getSelectedItem(), data);
 								}
 							}
 						}
 				});
+		Label labelsearch = new Label("Search ID : ");
+		final TextField searchField = new TextField ();
+		searchField.setPromptText("Search ID...");
+		searchField.textProperty().addListener(new InvalidationListener()
+		{
+
+
+            	@Override
+            	public void invalidated(Observable o) 
+            	{
+
+            		if(searchField.textProperty().get().isEmpty()) {
+
+                    table.setItems(data);
+
+                    return;
+                }
+
+                ObservableList<Student> tableItems = FXCollections.observableArrayList();
+
+                ObservableList<TableColumn<Student, ?>> cols = table.getColumns();
+
+                for(int i=0; i<data.size(); i++)
+                {
+
+                       for(int j=0; j<cols.size(); j++) 
+                   {
+
+                        TableColumn col = cols.get(j);
+
+                        String cellValue = col.getCellData(data.get(i)).toString();
+
+                        cellValue = cellValue.toLowerCase();
+
+                        if(cellValue.contains(searchField.textProperty().get().toLowerCase())) {
+
+                            tableItems.add(data.get(i));
+
+                            break;
+
+                        }                        
+
+                    }
+
+
+                }
+
+                table.setItems(tableItems);
+                table.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>()
+				{
+						@Override
+						public void handle(MouseEvent event)
+						{
+							if(event.getClickCount()>0)
+							{
+								if(table.getSelectionModel().getSelectedIndex()>=0)
+								{
+									 new AddSubject(primaryStage,table.getSelectionModel().getSelectedItem(), data);
+								}
+							}
+						}
+				});
+
+            }
+
+        });
+
+		HBox hb = new HBox();
+		hb.getChildren().addAll(labelsearch,searchField);
+		hb.setSpacing(10);
 		VBox vb = new VBox();
-		vb.getChildren().addAll(table);
+		vb.getChildren().addAll(table,hb);
 		Scene scene2 = new Scene(vb,800,500);
 		primaryStage.setScene(scene2);
 		primaryStage.show();
 	}
-	public static ObservableList<Student> getStudentDummy()
-	{
-		ObservableList<Student> data = FXCollections.observableArrayList();
 		
+	public ChooseStudent(Stage primaryStage)
+	{
 		data.addAll(new Student("Fahmi", "1300001", "3"));
 		data.addAll(new Student("Ahmad", "1300002", "3"));
 		data.addAll(new Student("Nasuha", "1300003","3"));
@@ -60,7 +144,85 @@ public class ChooseStudent
 		data.addAll(new Student("Nazim", "1100003","5"));
 		data.addAll(new Student("Faris", "1400005", "2"));
 		data.addAll(new Student("Firdaus", "1500003", "1"));
-		return data;
+		
+		table = new TableView<Student>();
+		table.getColumns().addAll(Student.getColumn(table));
+		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		table.setItems(data);
+		table.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>()
+				{
+						@Override
+						public void handle(MouseEvent event)
+						{
+							if(event.getClickCount()>0)
+							{
+								if(table.getSelectionModel().getSelectedIndex()>=0)
+								{
+									 new AddSubject(primaryStage,table.getSelectionModel().getSelectedItem(),data);
+								}
+							}
+						}
+				});
+		final TextField searchField = new TextField ();
+		searchField.setPromptText("Search ID...");
+		searchField.textProperty().addListener(new InvalidationListener()
+		{
+
+
+            	@Override
+            	public void invalidated(Observable o) 
+            	{
+
+            		if(searchField.textProperty().get().isEmpty()) {
+
+                    table.setItems(data);
+
+                    return;
+                }
+
+                ObservableList<Student> tableItems = FXCollections.observableArrayList();
+
+                ObservableList<TableColumn<Student, ?>> cols = table.getColumns();
+
+                for(int i=0; i<19; i++)
+                {
+
+                       for(int j=0; j<cols.size(); j++) 
+                   {
+
+                        TableColumn col = cols.get(j);
+
+                        String cellValue = col.getCellData(data.get(i)).toString();
+
+                        cellValue = cellValue.toLowerCase();
+
+                        if(cellValue.contains(searchField.textProperty().get().toLowerCase())) 
+                        {
+
+                            tableItems.add(data.get(i));
+
+                            break;
+
+                        }                        
+                        
+                   }
+                       
+
+
+                }
+
+                table.setItems(tableItems);
+
+            }
+
+        });
+		HBox hb = new HBox();
+		hb.getChildren().addAll(searchField);
+		VBox vb = new VBox();
+		vb.getChildren().addAll(table,hb);
+		Scene scene2 = new Scene(vb,800,500);
+		primaryStage.setScene(scene2);
+		primaryStage.show();
 	}
-   
+	
 }

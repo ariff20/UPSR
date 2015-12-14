@@ -10,6 +10,7 @@ public class Student
 	protected String ID;
 	protected String year;
 	protected ArrayList<Subject> collectionz = new ArrayList<Subject>();
+
 	
 	public Student()
 	{
@@ -27,9 +28,7 @@ public class Student
 	}
 	public void addSubject(Subject subject)
 	{
-		int i=0;
 		collectionz.add(new Subject(subject));
-		i++;
 	}
 	public void setID(String ID)
 	{
@@ -52,6 +51,13 @@ public class Student
 	{
 		return year;
 	}
+	public double getTotalFee() {
+		double total = 0;
+		for (Subject sub : collectionz) {
+			total += sub.getPrice();
+		}
+		return total;
+	}
 	public static ArrayList<TableColumn<Student,?>> getColumn(TableView table)
 	{
 		 int i;
@@ -62,16 +68,16 @@ public class Student
 		 i=0;
 		 TableColumn<Student,String> nameCol = new TableColumn<>(columnNames[i++]);
 		 TableColumn<Student,String> idCol = new TableColumn<>(columnNames[i++]);
-		 TableColumn<Student,String> yearCol = new TableColumn<>(columnNames[i++]);
+		 TableColumn<Student,String> yearCol = new TableColumn<>(columnNames[i]);
 		 
 		 i=0;
 		 nameCol.prefWidthProperty().bind(table.widthProperty().divide(100/column_width[i++]));
 		 idCol.prefWidthProperty().bind(table.widthProperty().divide(100/column_width[i++]));
-		 yearCol.prefWidthProperty().bind(table.widthProperty().divide(100/column_width[i++]));
+		 yearCol.prefWidthProperty().bind(table.widthProperty().divide(100/column_width[i]));
 		 i=0;
 		 nameCol.setCellValueFactory(new PropertyValueFactory<Student,String>(variableNames[i++]));
 		 idCol.setCellValueFactory(new PropertyValueFactory<Student,String>(variableNames[i++]));
-		 yearCol.setCellValueFactory(new PropertyValueFactory<Student,String>(variableNames[i++]));
+		 yearCol.setCellValueFactory(new PropertyValueFactory<Student,String>(variableNames[i]));
 		 columns.add(nameCol);
 		 columns.add(idCol);
 		 columns.add(yearCol);
@@ -79,6 +85,6 @@ public class Student
 	}
 	public String toString()
 	{
-		return "Name : " + name + "\n Year : " + year + "\n ID : " + ID;	
+		return ID;	
 	}
 }
