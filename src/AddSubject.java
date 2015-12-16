@@ -24,9 +24,9 @@ public class AddSubject extends Stage {
 	public static ObservableList<Subject> getSubjectDummy()
 	{
 		ObservableList<Subject> suboptions = FXCollections.observableArrayList();
-	    suboptions.addAll(new Subject("Bahasa Malaysia","BM501","Cikgu Arissa",55.50));
-	    suboptions.addAll(new Subject("English","ENG101","Teacher Muthu",52.50));
-	    suboptions.addAll(new Subject("Mathematics","MAT101","Ramu",62.50));
+	    suboptions.addAll(new Subject("Bahasa Malaysia","BM501","Cikgu Arissa",55.55));
+	    suboptions.addAll(new Subject("English","ENG101","Teacher Muthu",52.55));
+	    suboptions.addAll(new Subject("Mathematics","MAT101","Teacher Ramu",62.55));
 	    
 	    return suboptions;
 		
@@ -96,9 +96,22 @@ public class AddSubject extends Stage {
 				new add(student);
 			}	
 		});
+		Button DropButton = new Button("DROP");
+		DropButton.setOnAction(new EventHandler<ActionEvent>()
+				{
+					@Override
+						public void handle(ActionEvent e)
+					{
+						int i = list.getSelectionModel().getSelectedIndex();
+						listProperty.set(FXCollections.observableArrayList(student.collectionz.remove(i)));
+						labeltotsubjects.setText("Total Subjects : " + student.collectionz.size());
+						labeltotprice.setText("Total Fee : " + student.getTotalFee());
+					}
+				});
+		
 		hboy.getChildren().addAll(labeltotsubjects,labeltotprice);
 		hboy.setSpacing(15);
-		hboxz.getChildren().addAll(AddButton,RefreshButton,backbutton);
+		hboxz.getChildren().addAll(AddButton,DropButton,RefreshButton,backbutton);
 		hbox.getChildren().add(labelsubjects);
 		vbox.getChildren().addAll(hboz,hbox,list,hboy,hboxz);
 		primaryStage.setScene(new Scene(vbox, 500, 500));

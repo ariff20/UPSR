@@ -19,7 +19,18 @@ public class ChooseStudent
 	TableView<Student> table;
 	Student student;
 	ObservableList<Student> data = FXCollections.observableArrayList();
-	
+	public static ObservableList<Subject> getSubjectDummy()
+	{
+		ObservableList<Subject> suboptions = FXCollections.observableArrayList();
+	    suboptions.addAll(new Subject("Bahasa Malaysia","BM501","Cikgu Suraya",55.55));
+	    suboptions.addAll(new Subject("English","ENG101","Teacher Muthu",52.55));
+	    suboptions.addAll(new Subject("Mathematics","MAT101","Teacher Ramu",62.55));
+	    suboptions.addAll(new Subject("Science","SCN101","Teacher Syafiqah",62.55));
+	    
+	    
+	    return suboptions;
+		
+	}
 	
 
 	public ChooseStudent(Stage primaryStage, ObservableList<Student> data)
@@ -27,6 +38,16 @@ public class ChooseStudent
 		
 		this.student = student;
 		this.data = data;
+		Button report = new Button("REPORT");
+		report.setOnAction(new EventHandler<ActionEvent>()
+		{
+			@Override
+			public void handle(ActionEvent e)
+		{
+			  new Report(data,getSubjectDummy());
+		}	
+		}
+				);
 		table = new TableView<Student>();
 		table.getColumns().addAll(Student.getColumn(table));
 		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -113,8 +134,8 @@ public class ChooseStudent
         });
 
 		HBox hb = new HBox();
-		hb.getChildren().addAll(labelsearch,searchField);
-		hb.setSpacing(10);
+		hb.getChildren().addAll(labelsearch,searchField,report);
+		hb.setSpacing(30);
 		VBox vb = new VBox();
 		vb.getChildren().addAll(table,hb);
 		Scene scene2 = new Scene(vb,800,500);
@@ -148,6 +169,7 @@ public class ChooseStudent
 		table = new TableView<Student>();
 		table.getColumns().addAll(Student.getColumn(table));
 		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		Button report = new Button("REPORT");
 		table.setItems(data);
 		table.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>()
 				{

@@ -28,14 +28,15 @@ public class add extends Stage
 	public static ObservableList<Subject> getSubjectDummy()
 	{
 		ObservableList<Subject> suboptions = FXCollections.observableArrayList();
-	    suboptions.addAll(new Subject("Bahasa Malaysia","BM501","Cikgu Arissa",55.50));
+	    suboptions.addAll(new Subject("Bahasa Malaysia","BM501","Cikgu Suraya",55.50));
 	    suboptions.addAll(new Subject("English","ENG101","Teacher Muthu",52.50));
-	    suboptions.addAll(new Subject("Mathematics","MAT101","Ramu",62.50));
+	    suboptions.addAll(new Subject("Mathematics","MAT101","Teacher Ramu",62.50));
+	    suboptions.addAll(new Subject("Science","SCN101","Teacher Syafiqah",62.50));
+	    
 	    
 	    return suboptions;
 		
 	}
-	
 	
 	public add(Student student)
 	{
@@ -80,7 +81,7 @@ public class add extends Stage
 			@Override
 			public void handle(ActionEvent e)
 			{
-				System.out.print(comboBox.getValue().toString());
+				
 				student.addSubject(comboBox.getValue());
 				addStage.close();
 			}	

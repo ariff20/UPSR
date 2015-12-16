@@ -9,6 +9,7 @@ public class Student
 	protected String name;
 	protected String ID;
 	protected String year;
+	protected double fees;
 	protected ArrayList<Subject> collectionz = new ArrayList<Subject>();
 
 	
@@ -50,6 +51,11 @@ public class Student
 	public String getYear()
 	{
 		return year;
+	}
+	public double getFees()
+	{
+		double fee = getTotalFee();
+		return fee;
 	}
 	public double getTotalFee() {
 		double total = 0;
