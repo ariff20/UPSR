@@ -27,6 +27,7 @@ public class AddSubject extends Stage {
 	    suboptions.addAll(new Subject("Bahasa Malaysia","BM501","Cikgu Arissa",55.55));
 	    suboptions.addAll(new Subject("English","ENG101","Teacher Muthu",52.55));
 	    suboptions.addAll(new Subject("Mathematics","MAT101","Teacher Ramu",62.55));
+	    suboptions.addAll(new Subject("Science","SCN101","Teacher Syafiqah",65.75));
 	    
 	    return suboptions;
 		

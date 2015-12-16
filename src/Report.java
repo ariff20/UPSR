@@ -1,5 +1,6 @@
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -51,17 +52,7 @@ public class Report extends Stage
 		nomborsub[2] = nombormath;
 		nomborsub[3] = nomborsains;
 		}
-	public void sort() {
-		int temp;
-		for (int i = 0; i  < nomborsub.length - 1; i++) {
-			for (int j = i + 1; i < nomborsub.length; j++) 
-				if (nomborsub[i] < nomborsub[j])  {
-					temp = nomborsub[i];
-					nomborsub[i] = nomborsub[j];
-					nomborsub[j] = temp;
-				}
-		}
-	}
+	
 	public double totalfeez()
 	{	
 		double totalfeeza = 0;
@@ -135,41 +126,50 @@ public class Report extends Stage
 		Label studentbi = new Label("\t\t\t\t\t\t\t" + nomborbi );
 		Label studentmath = new Label("\t\t\t\t\t\t" + nombormath );
 		Label studentsains = new Label("\t\t\t\t\t\t" + nomborsains );
-		Label totinbm = new Label("\t\t\t\t\t\t" + totincomepersubbm);
-		Label totinbi = new Label("\t\t\t\t\t\t" + totincomepersubbi);
-		Label totinmath = new Label("\t\t\t\t\t\t\t" + totincomepersubmath);
-		Label totinsains = new Label("\t\t\t\t\t\t\t" + totincomepersubsains);
-		if(totincomepersubbm > (0.6 * totalfeez()))
+		DecimalFormat twoPlaces = new DecimalFormat("0.00");
+		Label totinbm = new Label("\t\t\t\t\t\t" + twoPlaces.format(totincomepersubbm));
+		Label totinbi = new Label("\t\t\t\t\t\t" + twoPlaces.format(totincomepersubbi));
+		Label totinmath = new Label("\t\t\t\t\t\t\t" + twoPlaces.format(totincomepersubmath));
+		Label totinsains = new Label("\t\t\t\t\t\t\t" + twoPlaces.format(totincomepersubsains));
+		if(nomborbm>5)
 		{
 			 incomebm = totincomepersubbm * perc[0];
+			
 		}
 		else
 		{
 			incomebm = totincomepersubbm * perc[1];
+			
 		}
-		if(totincomepersubbi > (0.6 * totalfeez()))
+		if(nomborbi>5)
 		{
 			 incomebi = totincomepersubbi * perc[0];
+			 
 		}
 		else
 		{
 			incomebi = totincomepersubbi * perc[1];
+			
 		}
-		if(totincomepersubmath > (0.6 * totalfeez()))
+		if(nombormath>5)
 		{
-			 incomemath = totincomepersubbm * perc[0];
-		}
-		else
-		{
-			incomemath = totincomepersubbm * perc[1];
-		}
-		if(totincomepersubsains > (0.6 * totalfeez()))
-		{
-			 incomesains = totincomepersubbm * perc[0];
+			 incomemath = totincomepersubmath * perc[0];
+			 
 		}
 		else
 		{
-			incomesains = totincomepersubbm * perc[1];
+			incomemath = totincomepersubmath * perc[1];
+			
+		}
+		if(nomborsains>5)
+		{
+			 incomesains = totincomepersubsains * perc[0];
+			 
+		}
+		else
+		{
+			incomesains = totincomepersubsains * perc[1];
+			;
 		}
 		
 	    Label totincome = new Label("\t\t\tTOTAL INCOME");
@@ -180,10 +180,10 @@ public class Report extends Stage
 	    String paymentbi = currencyFormatter.format(incomebi);
 	    String paymentmath = currencyFormatter.format(incomemath);
 	    String paymentsains = currencyFormatter.format(incomesains);
-		Label paymentz1 = new Label("\t\t\t\t\t" + paymentbm);
-		Label paymentz2 = new Label("\t\t\t\t\t" +paymentbi);
-		Label paymentz3 = new Label("\t\t\t\t\t\t" +paymentmath);
-		Label paymentz4 = new Label("\t\t\t\t\t\t\t" +paymentsains);
+		Label paymentz1 = new Label("\t\t\t\t\t\t\t" + paymentbm);
+		Label paymentz2 = new Label("\t\t\t\t\t\t\t" +paymentbi);
+		Label paymentz3 = new Label("\t\t\t\t\t\t\t\t" +paymentmath);
+		Label paymentz4 = new Label("\t\t\t\t\t\t\t\t" +paymentsains);
 		
 		HBox hboxtitle = new HBox();
 		hboxtitle.getChildren().addAll(totstudents,totincome,totpayment);
