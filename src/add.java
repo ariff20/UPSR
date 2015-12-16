@@ -107,6 +107,6 @@ public class add extends Stage
 	    addStage.show();
 	}
 	
-	//Scene scenez = new Scene()
+	
 }
 

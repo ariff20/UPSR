@@ -28,8 +28,8 @@ public class Report extends Stage
 	int nomborsains =0;
 	int nomborsub[] = {nomborbm, nomborbi,nombormath,nomborsains};
 	double perc[] = {0.7,0.4};
-	double totincomepersubbm,totincomepersubbi,totincomepersubmath,totincomepersubsains;
-	double incomebm,incomebi,incomemath,incomesains;
+	double totincomepersubbm,totincomepersubbi,totincomepersubmath,totincomepersubsains,totincomeallsub;
+	double incomebm,incomebi,incomemath,incomesains,allpayment,tuitionincome;
 	Subject subz;
 	ObservableList<Student> data;
 	ObservableList<Subject> cikgu2;
@@ -65,72 +65,38 @@ public class Report extends Stage
 	public Report(ObservableList<Student> data,ObservableList<Subject> cikgu)
 	{
 		this.data = data;
-		Text text = new Text(500,500,"TUITION REPORT");
-		Blend blend = new Blend();
-		blend.setMode(BlendMode.MULTIPLY);
-		DropShadow ds = new DropShadow();
-		ds.setColor(Color.rgb(254, 235, 66, 0.3));
-		ds.setOffsetX(5);
-		ds.setOffsetY(5);
-		ds.setRadius(5);
-		ds.setSpread(0.2);
-		
-		blend.setBottomInput(ds);
-
-		DropShadow ds1 = new DropShadow();
-		ds1.setColor(Color.web("#f13a00"));
-		ds1.setRadius(20);
-		ds1.setSpread(0.2);
-
-		Blend blend2 = new Blend();
-		blend2.setMode(BlendMode.MULTIPLY);
-
-		InnerShadow is = new InnerShadow();
-		is.setColor(Color.web("#feeb42"));
-		is.setRadius(9);
-		is.setChoke(0.8);
-		blend2.setBottomInput(is);
-
-		InnerShadow is1 = new InnerShadow();
-		is1.setColor(Color.web("#f13a00"));
-		is1.setRadius(5);
-		is1.setChoke(0.4);
-		blend2.setTopInput(is1);
-
-		Blend blend1 = new Blend();
-		blend1.setMode(BlendMode.MULTIPLY);
-		blend1.setBottomInput(ds1);
-		blend1.setTopInput(blend2);
-
-		blend.setTopInput(blend1);
-
-		text.setEffect(blend);
-		Label totStudents = new Label("Total Students : " + data.size());
-		
-		Label totalFees = new Label ("Total fees :  " + totalfeez() );
+		Label tuitionreport = new Label("\n\n\t\t\t\t   TUITION REPORT");
+		tuitionreport.setFont(new Font("Arial",30));
+		Label totStudents = new Label("\t\t\t\t\t\t\t                     Total Students : " + data.size());
+		Label totalFees = new Label ("\t\t\t\t\t\t\t\t              Total fees :  " + totalfeez() );
 		totStudents.setFont(new Font("Arial", 15));
 		totalFees.setFont(new Font("Arial", 15));
-		Text instructors = new Text("***INSTRUCTORS***");
+		Text instructors = new Text("\n\n\n\t\t\t\t\t\t\t      ***INSTRUCTORS***\n\n");
 		instructors.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
 		Label teacher1 = new Label(cikgu.get(0).getTeacher());
 		Label teacher2 = new Label(cikgu.get(1).getTeacher());
 		Label teacher3 = new Label(cikgu.get(2).getTeacher());
 		Label teacher4 = new Label(cikgu.get(3).getTeacher());
+		
 		checknumberofstudents();
+		Locale locale = new Locale("en", "US");      
+	    NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+	    
 		totincomepersubbm = nomborbm * cikgu.get(0).getPrice();
 		totincomepersubbi = nomborbi * cikgu.get(1).getPrice();
 		totincomepersubmath = nombormath * cikgu.get(2).getPrice();
 		totincomepersubsains = nomborsains * cikgu.get(3).getPrice();
 		Label totstudents = new Label("\t\t\t\t\t\t\tTOTAL STUDENTS");
-		Label studentbm = new Label("\t\t\t\t\t\t\t" + nomborbm );
-		Label studentbi = new Label("\t\t\t\t\t\t\t" + nomborbi );
-		Label studentmath = new Label("\t\t\t\t\t\t" + nombormath );
-		Label studentsains = new Label("\t\t\t\t\t\t" + nomborsains );
-		DecimalFormat twoPlaces = new DecimalFormat("0.00");
-		Label totinbm = new Label("\t\t\t\t\t\t" + twoPlaces.format(totincomepersubbm));
-		Label totinbi = new Label("\t\t\t\t\t\t" + twoPlaces.format(totincomepersubbi));
-		Label totinmath = new Label("\t\t\t\t\t\t\t" + twoPlaces.format(totincomepersubmath));
-		Label totinsains = new Label("\t\t\t\t\t\t\t" + twoPlaces.format(totincomepersubsains));
+		Label studentbm = new Label("\t\t\t\t\t    " + nomborbm );
+		Label studentbi = new Label("\t\t\t\t\t " + nomborbi );
+		Label studentmath = new Label("\t\t\t\t\t  " + nombormath );
+		Label studentsains = new Label("\t\t\t\t\t " + nomborsains );
+		Label totinbm = new Label("\t\t\t\t\t\t" + currencyFormatter.format(totincomepersubbm));
+		Label totinbi = new Label("\t\t\t\t\t\t" + currencyFormatter.format(totincomepersubbi));
+		Label totinmath = new Label("\t\t\t\t\t\t" + currencyFormatter.format(totincomepersubmath));
+		Label totinsains = new Label("\t\t\t\t\t\t   " + currencyFormatter.format(totincomepersubsains));
+		
+		
 		if(nomborbm>5)
 		{
 			 incomebm = totincomepersubbm * perc[0];
@@ -169,28 +135,28 @@ public class Report extends Stage
 		else
 		{
 			incomesains = totincomepersubsains * perc[1];
-			;
+			
 		}
 		
 	    Label totincome = new Label("\t\t\tTOTAL INCOME");
 	    Label totpayment = new Label("\t\t\t\t\t\t\t\tPAYMENT");
-	    Locale locale = new Locale("en", "US");      
-	    NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 	    String paymentbm = currencyFormatter.format(incomebm);
 	    String paymentbi = currencyFormatter.format(incomebi);
 	    String paymentmath = currencyFormatter.format(incomemath);
 	    String paymentsains = currencyFormatter.format(incomesains);
-		Label paymentz1 = new Label("\t\t\t\t\t\t\t" + paymentbm);
-		Label paymentz2 = new Label("\t\t\t\t\t\t\t" +paymentbi);
-		Label paymentz3 = new Label("\t\t\t\t\t\t\t\t" +paymentmath);
-		Label paymentz4 = new Label("\t\t\t\t\t\t\t\t" +paymentsains);
-		
+	    allpayment = incomebm + incomebi + incomemath + incomesains;
+	    String allpaymentz = currencyFormatter.format(allpayment);
+		Label paymentz1 = new Label("\t\t\t\t\t\t\t\t\t" + paymentbm);
+		Label paymentz2 = new Label("\t\t\t\t\t\t\t\t\t  " +paymentbi);
+		Label paymentz3 = new Label("\t\t\t\t\t\t\t\t\t  " +paymentmath);
+		Label paymentz4 = new Label("\t\t\t\t\t\t\t\t\t     " +paymentsains);
+		Label allpaymenta = new Label("Total payments :     " + allpaymentz);
+		tuitionincome = totalfeez() - allpayment;
+		String tuitionincomez = currencyFormatter.format(tuitionincome);
+		Label tuitionincomea = new Label("Tuition income after payment :  " + tuitionincomez);
 		HBox hboxtitle = new HBox();
 		hboxtitle.getChildren().addAll(totstudents,totincome,totpayment);
 		hboxtitle.setSpacing(10);
-		HBox hbez = new HBox();
-		hbez.getChildren().addAll(totStudents,totalFees);
-		hbez.setSpacing(30);
 		HBox hb = new HBox();
 		hb.getChildren().addAll(teacher1,studentbm,totinbm,paymentz1);
 		hb.setSpacing(10);
@@ -203,8 +169,11 @@ public class Report extends Stage
 		HBox hb4 = new HBox();
 		hb4.getChildren().addAll(teacher4,studentsains,totinsains,paymentz4);
 		hb.setSpacing(10);
+		VBox vb = new VBox();
+		vb.getChildren().addAll(tuitionreport,totStudents,totalFees);
+		vb.setSpacing(10);
 		VBox vbez = new VBox();
-		vbez.getChildren().addAll(text,hbez,instructors,hboxtitle,hb,hb2,hb3,hb4);
+		vbez.getChildren().addAll(vb,instructors,hboxtitle,hb,hb2,hb3,hb4,allpaymenta,tuitionincomea);
 		this.setScene(new Scene(vbez,1000,1000));
 		this.show();
 		

@@ -97,10 +97,7 @@ public class LogIN extends Application
 		hb3.setSpacing(40);
 		VBox vb = new VBox();
 		vb.getChildren().addAll(hb,hb1,hb2,hb3);
-		//root.getChildren().add(lb_text);
-		//root.getChildren().add(loginButton);
 		Scene scene = new Scene(vb);
-		//Scene scene2 = new Scene(nextbox);
 	        
 		primaryStage.setScene(scene);
 	}
