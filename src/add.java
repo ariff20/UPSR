@@ -21,7 +21,7 @@ import javafx.scene.effect.Reflection;
 public class add extends Stage
 {
 	
-	Text t = new Text("CHOOSE YOUR SUBJECT WISELY");
+	Text t = new Text("KAHA TUITION CENTRE");
 	Label addsubject = new Label("Choose :");
 	Button ok = new Button("OK");
 	Button cancel = new Button("Cancel");

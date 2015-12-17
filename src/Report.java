@@ -26,6 +26,7 @@ public class Report extends Stage
 	int nomborbi =0;
 	int nombormath =0;
 	int nomborsains =0;
+	int nomborsemua;
 	int nomborsub[] = {nomborbm, nomborbi,nombormath,nomborsains};
 	double perc[] = {0.7,0.4};
 	double totincomepersubbm,totincomepersubbi,totincomepersubmath,totincomepersubsains,totincomeallsub;
@@ -67,7 +68,8 @@ public class Report extends Stage
 		this.data = data;
 		Label tuitionreport = new Label("\n\n\t\t\t\t   TUITION REPORT");
 		tuitionreport.setFont(new Font("Arial",30));
-		Label totStudents = new Label("\t\t\t\t\t\t\t                     Total Students : " + data.size());
+		nomborsemua = nomborbm + nomborbi+nombormath+nomborsains;
+		Label totStudents = new Label("\t\t\t\t\t\t\t                     Total Students : " + nomborsemua);
 		Label totalFees = new Label ("\t\t\t\t\t\t\t\t              Total fees :  " + totalfeez() );
 		totStudents.setFont(new Font("Arial", 15));
 		totalFees.setFont(new Font("Arial", 15));
@@ -97,7 +99,7 @@ public class Report extends Stage
 		Label totinsains = new Label("\t\t\t\t\t\t   " + currencyFormatter.format(totincomepersubsains));
 		
 		
-		if(nomborbm>5)
+		if(nomborbm>(0.5*data.size()))
 		{
 			 incomebm = totincomepersubbm * perc[0];
 			
