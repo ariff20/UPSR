@@ -9,6 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -32,8 +34,10 @@ public class LogIN extends Application
 	{
 		
 		thestage=primaryStage;
-		primaryStage.setTitle("UPSR TUITION MANAGEMENT SYSTEM");
+		primaryStage.setTitle("KAHA TUITION MANAGEMENT SYSTEM");
 		primaryStage.show();
+		Image img = new Image("KAHA.jpg");
+		ImageView imgview = new ImageView(img);
 		DropShadow ds = new DropShadow();
 		ds.setOffsetY(3.0f);
 		ds.setColor(Color.color(0.4f, 0.4f, 0.4f));
@@ -43,14 +47,13 @@ public class LogIN extends Application
 		t.setX(10.0f);
 		t.setY(270.0f);
 		t.setFill(Color.RED);
-		t.setText("WELCOME TO UPSR TUITION MANAGEMENT SYSTEM");
+		t.setText("WELCOME TO KAHA TUITION MANAGEMENT SYSTEM");
 		t.setFont(Font.font(null, FontWeight.BOLD, 32));
 		Label label1 = new Label("User:");
 		final TextField textField = new TextField ();
 		textField.setPromptText("UserID");
 		Label label2 = new Label("Password:");
 		final PasswordField pb = new PasswordField();
-		//lb_text = new Label("WELCOME TO UPSR TUITION MANAGEMENT SYSTEM");
 		loginButton = new Button("Login");
 		cancelButton = new Button("Cancel");
 		loginButton.setOnAction(new EventHandler<ActionEvent>()
@@ -91,12 +94,12 @@ public class LogIN extends Application
 		hb1.setSpacing(50);
 		HBox hb2 = new HBox();
      	hb2.getChildren().addAll(label2,pb);
-	    hb2.setSpacing(10);
+	    hb2.setSpacing(23);
 		HBox hb3 = new HBox();
 		hb3.getChildren().addAll(loginButton,cancelButton);
 		hb3.setSpacing(40);
 		VBox vb = new VBox();
-		vb.getChildren().addAll(hb,hb1,hb2,hb3);
+		vb.getChildren().addAll(imgview,hb,hb1,hb2,hb3);
 		Scene scene = new Scene(vb);
 	        
 		primaryStage.setScene(scene);

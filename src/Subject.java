@@ -1,5 +1,5 @@
 
-public class Subject 
+public class Subject extends Student
 {
 	protected String name;
 	protected String code;

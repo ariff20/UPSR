@@ -2,8 +2,12 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -26,32 +30,35 @@ public class Report extends Stage
 	int nomborbi =0;
 	int nombormath =0;
 	int nomborsains =0;
-	int nomborsemua;
 	int nomborsub[] = {nomborbm, nomborbi,nombormath,nomborsains};
+	double totincome;
+	int x = ChooseStudent.suboptions.size();
+	int[] noofteachers = new int[x];
+	private ObservableList<Label> teacherlabels = FXCollections.observableArrayList();
+	private ObservableList<Label> eachlecturertotstudents = FXCollections.observableArrayList();
+	private ObservableList<Label> subincome = FXCollections.observableArrayList();
+	private ObservableList<Label> teacherpayments = FXCollections.observableArrayList();
 	double perc[] = {0.7,0.4};
-	double totincomepersubbm,totincomepersubbi,totincomepersubmath,totincomepersubsains,totincomeallsub;
-	double incomebm,incomebi,incomemath,incomesains,allpayment,tuitionincome;
+	double totincomepersub[];
+	double payment[];
+	String paymentz[];
+	double incomebm,incomebi,incomemath,incomesains,allpayment,tuitionincome ,totalfeesa;
 	Subject subz;
 	ObservableList<Student> data;
-	ObservableList<Subject> cikgu2;
 	public void checknumberofstudents()
 	{
 		for (Student stud : data) {
-			for (int i = 0; i < stud.collectionz.size(); i++) {
-				if  (stud.collectionz.get(i).getTeacher() == "Cikgu Suraya")
-					nomborbm++;
-				else if (stud.collectionz.get(i).getTeacher() == "Teacher Muthu")
-					nomborbi++;
-				else if (stud.collectionz.get(i).getTeacher() == "Teacher Ramu")
-					nombormath++;
-				else if (stud.collectionz.get(i).getTeacher() == "Teacher Syafiqah")
-					nomborsains++;
+			for (int i = 0; i < ChooseStudent.suboptions.size(); i++) 
+			{
+				if  (stud.collectionz.get(i).getTeacher() == ChooseStudent.suboptions.get(i).getTeacher())
+					noofteachers[i]++;
+				else
+				{
+					System.out.println("Error with the teacher array");
+				}
 			}
 		}
-		nomborsub[0] = nomborbm;
-		nomborsub[1] = nomborbi;
-		nomborsub[2] = nombormath;
-		nomborsub[3] = nomborsains;
+		
 		}
 	
 	public double totalfeez()
@@ -63,95 +70,59 @@ public class Report extends Stage
 			}
 			return totalfeeza;
 	}
-	public Report(ObservableList<Student> data,ObservableList<Subject> cikgu)
+	public Report(ObservableList<Student> data)
 	{
 		this.data = data;
 		Label tuitionreport = new Label("\n\n\t\t\t\t   TUITION REPORT");
-		tuitionreport.setFont(new Font("Arial",30));
-		nomborsemua = nomborbm + nomborbi+nombormath+nomborsains;
-		Label totStudents = new Label("\t\t\t\t\t\t\t                     Total Students : " + nomborsemua);
-		Label totalFees = new Label ("\t\t\t\t\t\t\t\t              Total fees :  " + totalfeez() );
-		totStudents.setFont(new Font("Arial", 15));
+		tuitionreport.setFont(new Font("Arial",50));
+		Locale locale = new Locale("en", "US");      
+	    NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+		totalfeesa = totalfeez();
+		currencyFormatter.format(totalfeesa);
+	    Label totalFees = new Label ("\t\t\t\t\t\t\t\t              Total fees :  " + totalfeesa );
 		totalFees.setFont(new Font("Arial", 15));
 		Text instructors = new Text("\n\n\n\t\t\t\t\t\t\t      ***INSTRUCTORS***\n\n");
 		instructors.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
-		Label teacher1 = new Label(cikgu.get(0).getTeacher());
-		Label teacher2 = new Label(cikgu.get(1).getTeacher());
-		Label teacher3 = new Label(cikgu.get(2).getTeacher());
-		Label teacher4 = new Label(cikgu.get(3).getTeacher());
+		for(int y =0;y<ChooseStudent.suboptions.size();y++)
+		{
+			Label b = new Label(ChooseStudent.suboptions.get(y).getTeacher() + ": ");
+		    teacherlabels.add(b);
+		}
 		
 		checknumberofstudents();
-		Locale locale = new Locale("en", "US");      
-	    NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-	    
-		totincomepersubbm = nomborbm * cikgu.get(0).getPrice();
-		totincomepersubbi = nomborbi * cikgu.get(1).getPrice();
-		totincomepersubmath = nombormath * cikgu.get(2).getPrice();
-		totincomepersubsains = nomborsains * cikgu.get(3).getPrice();
-		Label totstudents = new Label("\t\t\t\t\t\t\tTOTAL STUDENTS");
-		Label studentbm = new Label("\t\t\t\t\t    " + nomborbm );
-		Label studentbi = new Label("\t\t\t\t\t " + nomborbi );
-		Label studentmath = new Label("\t\t\t\t\t  " + nombormath );
-		Label studentsains = new Label("\t\t\t\t\t " + nomborsains );
-		Label totinbm = new Label("\t\t\t\t\t\t" + currencyFormatter.format(totincomepersubbm));
-		Label totinbi = new Label("\t\t\t\t\t\t" + currencyFormatter.format(totincomepersubbi));
-		Label totinmath = new Label("\t\t\t\t\t\t" + currencyFormatter.format(totincomepersubmath));
-		Label totinsains = new Label("\t\t\t\t\t\t   " + currencyFormatter.format(totincomepersubsains));
-		
-		
-		if(nomborbm>(0.5*data.size()))
+	    Label totStudents = new Label("\t\t\t\t\t\t\t                     Total Students : " + data.size());
+		totStudents.setFont(new Font("Arial", 15));	
+		Label totstudents = new Label("\t\t\t\t\t\t\t TOTAL STUDENTS");
+		for(int v=0;v<ChooseStudent.suboptions.size();v++)
 		{
-			 incomebm = totincomepersubbm * perc[0];
+			Label studenteachlecturer = new Label("\t\t\t\t\t" + noofteachers[v]);
+			eachlecturertotstudents.add(studenteachlecturer);
+		}
+		for(int z=0;z<ChooseStudent.suboptions.size();z++)
+		{
+			totincomepersub[z] = noofteachers[z] * ChooseStudent.suboptions.get(z).getPrice();
+			totincome += totincomepersub[z];
+			Label subjectincome = new Label("\t\t\t\t\t\t" + currencyFormatter.format(totincomepersub[z]));
+			subincome.add(subjectincome);
+			
+			if(noofteachers[z]>(0.5*noofteachers.length))
+			{
+				payment[z] = totincome * perc[0];
+			}
+			else
+			{
+				payment[z] = totincome * perc[1];
+			}
+			allpayment += payment[z];
+			paymentz[z] = currencyFormatter.format(payment[z]);
+			Label payments = new Label ("\t\t\t\t\t\t\t\t\t " + paymentz[z]);
+			teacherpayments.add(payments);
 			
 		}
-		else
-		{
-			incomebm = totincomepersubbm * perc[1];
-			
-		}
-		if(nomborbi>5)
-		{
-			 incomebi = totincomepersubbi * perc[0];
-			 
-		}
-		else
-		{
-			incomebi = totincomepersubbi * perc[1];
-			
-		}
-		if(nombormath>5)
-		{
-			 incomemath = totincomepersubmath * perc[0];
-			 
-		}
-		else
-		{
-			incomemath = totincomepersubmath * perc[1];
-			
-		}
-		if(nomborsains>5)
-		{
-			 incomesains = totincomepersubsains * perc[0];
-			 
-		}
-		else
-		{
-			incomesains = totincomepersubsains * perc[1];
-			
-		}
-		
+		String allpaymentz = currencyFormatter.format(allpayment);
 	    Label totincome = new Label("\t\t\tTOTAL INCOME");
 	    Label totpayment = new Label("\t\t\t\t\t\t\t\tPAYMENT");
-	    String paymentbm = currencyFormatter.format(incomebm);
-	    String paymentbi = currencyFormatter.format(incomebi);
-	    String paymentmath = currencyFormatter.format(incomemath);
-	    String paymentsains = currencyFormatter.format(incomesains);
-	    allpayment = incomebm + incomebi + incomemath + incomesains;
-	    String allpaymentz = currencyFormatter.format(allpayment);
-		Label paymentz1 = new Label("\t\t\t\t\t\t\t\t\t" + paymentbm);
-		Label paymentz2 = new Label("\t\t\t\t\t\t\t\t\t  " +paymentbi);
-		Label paymentz3 = new Label("\t\t\t\t\t\t\t\t\t  " +paymentmath);
-		Label paymentz4 = new Label("\t\t\t\t\t\t\t\t\t     " +paymentsains);
+		Label linez = new Label ("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		Label allpaymenta = new Label("Total payments :     " + allpaymentz);
 		tuitionincome = totalfeez() - allpayment;
 		String tuitionincomez = currencyFormatter.format(tuitionincome);
@@ -159,25 +130,21 @@ public class Report extends Stage
 		HBox hboxtitle = new HBox();
 		hboxtitle.getChildren().addAll(totstudents,totincome,totpayment);
 		hboxtitle.setSpacing(10);
-		HBox hb = new HBox();
-		hb.getChildren().addAll(teacher1,studentbm,totinbm,paymentz1);
-		hb.setSpacing(10);
-		HBox hb2 = new HBox();
-		hb2.getChildren().addAll(teacher2,studentbi,totinbi,paymentz2);
-		hb2.setSpacing(10);
-		HBox hb3 = new HBox();
-		hb3.getChildren().addAll(teacher3,studentmath,totinmath,paymentz3);
-		hb3.setSpacing(10);
-		HBox hb4 = new HBox();
-		hb4.getChildren().addAll(teacher4,studentsains,totinsains,paymentz4);
-		hb.setSpacing(10);
-		VBox vb = new VBox();
-		vb.getChildren().addAll(tuitionreport,totStudents,totalFees);
-		vb.setSpacing(10);
-		VBox vbez = new VBox();
-		vbez.getChildren().addAll(vb,instructors,hboxtitle,hb,hb2,hb3,hb4,allpaymenta,tuitionincomea);
-		this.setScene(new Scene(vbez,1000,1000));
-		this.show();
+		for(int m=0;m<ChooseStudent.suboptions.size();m++)
+		{
+			HBox hb = new HBox();
+			hb.getChildren().addAll(teacherlabels.get(m),eachlecturertotstudents.get(m),subincome.get(m),teacherpayments.get(m));
+			hb.setSpacing(10);
+			VBox vb = new VBox();
+			vb.getChildren().addAll(tuitionreport,totStudents,totalFees);
+			vb.setSpacing(10);
+			VBox vbez = new VBox();
+			vbez.getChildren().addAll(vb,instructors,hboxtitle,hb,linez,allpaymenta,tuitionincomea);
+			this.setScene(new Scene(vbez,1000,1000));
+			this.show();
+		}
+		
+		
 		
 	}
 	

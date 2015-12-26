@@ -19,23 +19,27 @@ public class ChooseStudent
 	TableView<Student> table;
 	Student student;
 	ObservableList<Student> data = FXCollections.observableArrayList();
-	public static ObservableList<Subject> getSubjectDummy()
-	{
-		ObservableList<Subject> suboptions = FXCollections.observableArrayList();
-	    suboptions.addAll(new Subject("Bahasa Malaysia","BM501","Cikgu Suraya",55.55));
-	    suboptions.addAll(new Subject("English","ENG101","Teacher Muthu",52.55));
-	    suboptions.addAll(new Subject("Mathematics","MAT101","Teacher Ramu",62.55));
-	    suboptions.addAll(new Subject("Science","SCN101","Teacher Syafiqah",65.75));
-	    
-	    
-	    return suboptions;
-		
-	}
-	
+	static ObservableList<Subject> suboptions = FXCollections.observableArrayList();
 
+	
 	public ChooseStudent(Stage primaryStage, ObservableList<Student> data)
 	{
 		
+		suboptions.addAll(new Subject("Bahasa Malaysia","BM501","Cikgu Suraya",55.55));
+		suboptions.addAll(new Subject("English","ENG101","Teacher Muthu",52.55));
+		suboptions.addAll(new Subject("Mathematics","MAT101","Teacher Ramu",62.55));
+		suboptions.addAll(new Subject("Science","SCN101","Teacher Syafiqah",65.75));
+		
+		Button addnewsub = new Button("ADD NEW SUBJECT");
+		addnewsub.setOnAction(new EventHandler<ActionEvent>()
+		{
+			@Override
+			public void handle(ActionEvent e)
+			{
+				new AddNewSubject();
+			}
+		}
+		);
 		this.student = student;
 		this.data = data;
 		Button report = new Button("REPORT");
@@ -44,7 +48,7 @@ public class ChooseStudent
 			@Override
 			public void handle(ActionEvent e)
 		{
-			  new Report(data,getSubjectDummy());
+			  new Report(data);
 		}	
 		}
 				);
@@ -134,7 +138,7 @@ public class ChooseStudent
         });
 
 		HBox hb = new HBox();
-		hb.getChildren().addAll(labelsearch,searchField,report);
+		hb.getChildren().addAll(labelsearch,searchField,addnewsub,report);
 		hb.setSpacing(30);
 		VBox vb = new VBox();
 		vb.getChildren().addAll(table,hb);
@@ -165,7 +169,16 @@ public class ChooseStudent
 		data.addAll(new Student("Nazim", "1100003","5"));
 		data.addAll(new Student("Faris", "1400005", "2"));
 		data.addAll(new Student("Firdaus", "1500003", "1"));
-		
+		Button addnewsub = new Button("ADD NEW SUBJECT");
+		addnewsub.setOnAction(new EventHandler<ActionEvent>()
+		{
+			@Override
+			public void handle(ActionEvent e)
+			{
+				new AddNewSubject();
+			}
+		}
+		);
 		table = new TableView<Student>();
 		table.getColumns().addAll(Student.getColumn(table));
 		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -239,7 +252,7 @@ public class ChooseStudent
 
         });
 		HBox hb = new HBox();
-		hb.getChildren().addAll(searchField);
+		hb.getChildren().addAll(searchField,addnewsub);
 		VBox vb = new VBox();
 		vb.getChildren().addAll(table,hb);
 		Scene scene2 = new Scene(vb,800,500);

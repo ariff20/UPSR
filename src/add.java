@@ -25,21 +25,11 @@ public class add extends Stage
 	Label addsubject = new Label("Choose :");
 	Button ok = new Button("OK");
 	Button cancel = new Button("Cancel");
-	public static ObservableList<Subject> getSubjectDummy()
-	{
-		ObservableList<Subject> suboptions = FXCollections.observableArrayList();
-	    suboptions.addAll(new Subject("Bahasa Malaysia","BM501","Cikgu Suraya",55.50));
-	    suboptions.addAll(new Subject("English","ENG101","Teacher Muthu",52.50));
-	    suboptions.addAll(new Subject("Mathematics","MAT101","Teacher Ramu",62.50));
-	    suboptions.addAll(new Subject("Science","SCN101","Teacher Syafiqah",62.50));
-	    
-	    
-	    return suboptions;
-		
-	}
+	
 	
 	public add(Student student)
 	{
+		
 		Stage addStage = new Stage();
 		addStage.setTitle("ADD YOUR SUBJECT");
 		t.setX(10.0f);
@@ -51,7 +41,7 @@ public class add extends Stage
 		r.setFraction(0.7f); 
 		t.setEffect(r); 
 		t.setTranslateY(400);
-		final ComboBox<Subject> comboBox = new ComboBox(getSubjectDummy());
+		final ComboBox<Subject> comboBox = new ComboBox(ChooseStudent.suboptions);
 		comboBox.getSelectionModel().selectFirst();
 		comboBox.setCellFactory(new Callback<ListView<Subject>,ListCell<Subject>>()
 				{
