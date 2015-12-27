@@ -1,4 +1,7 @@
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -33,7 +36,9 @@ public class AddSubject extends Stage {
 		HBox hboy = new HBox();
 		Label labelname = new Label("Name : ");
 		Label labeltotsubjects = new Label ("Total Subjects : " + student.collectionz.size());
-		Label labeltotprice = new Label("Total Fee : " + student.getTotalFee());
+		 BigDecimal bs= new BigDecimal(student.getTotalFee());
+		 bs = bs.setScale(2, RoundingMode.HALF_UP);
+		Label labeltotprice = new Label("Total Fee : " + bs);
 		Text studentname = new Text(student.getName());
 		studentname.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
 		Label labelID = new Label("ID : ");

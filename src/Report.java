@@ -90,8 +90,9 @@ public class Report extends Stage
 		Locale locale = new Locale("en", "US");      
 	    NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 		totalfeesa = totalfeez();
-		currencyFormatter.format(totalfeesa);
-	    Label totalFees = new Label ("\t\t\t\t\t\t\t\t              Total fees :  " + totalfeesa );
+		 BigDecimal bd = new BigDecimal(totalfeesa);
+		  bd = bd.setScale(2, RoundingMode.HALF_UP);
+	    Label totalFees = new Label ("\t\t\t\t\t\t\t\t              Total fees :  " +bd);
 		totalFees.setFont(new Font("Arial", 15));
 		Text instructors = new Text("\n\n\n\t\t\t\t\t\t\t      ***INSTRUCTORS***\n\n");
 		instructors.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
