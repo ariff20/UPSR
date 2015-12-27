@@ -18,6 +18,9 @@ import javafx.stage.Stage;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.effect.Reflection;
+/*This class is a basic class with a combo box for the staff to add a subject for the student
+ * 
+ */
 public class add extends Stage
 {
 	

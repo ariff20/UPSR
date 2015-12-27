@@ -14,6 +14,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+/*This is the class where the staff will look at the list of students that is already registered to the tuition and choose one of them 
+ * to add a subject. This is also the view where the staff can click on the report and search for a student and also add a brand new subject for the tuition.
+ */
 public class ChooseStudent 
 {
 	TableView<Student> table;
@@ -25,10 +29,7 @@ public class ChooseStudent
 	public ChooseStudent(Stage primaryStage, ObservableList<Student> data)
 	{
 		
-		suboptions.addAll(new Subject("Bahasa Malaysia","BM501","Cikgu Suraya",55.55));
-		suboptions.addAll(new Subject("English","ENG101","Teacher Muthu",52.55));
-		suboptions.addAll(new Subject("Mathematics","MAT101","Teacher Ramu",62.55));
-		suboptions.addAll(new Subject("Science","SCN101","Teacher Syafiqah",65.75));
+
 		
 		Button addnewsub = new Button("ADD NEW SUBJECT");
 		addnewsub.setOnAction(new EventHandler<ActionEvent>()
@@ -170,6 +171,7 @@ public class ChooseStudent
 		data.addAll(new Student("Faris", "1400005", "2"));
 		data.addAll(new Student("Firdaus", "1500003", "1"));
 		Button addnewsub = new Button("ADD NEW SUBJECT");
+		suboptions.addAll(new Subject("Bahasa Malaysia","BM501","Cikgu Suraya",55.55));
 		addnewsub.setOnAction(new EventHandler<ActionEvent>()
 		{
 			@Override

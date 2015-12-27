@@ -1,4 +1,7 @@
 
+/*This is the subject class for the adding of subjects for the students\
+ * 
+ */
 public class Subject extends Student
 {
 	protected String name;

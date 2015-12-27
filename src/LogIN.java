@@ -18,6 +18,15 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+/* Project Members: - Syed Mohamed Ariff 1426457
+ * 					- Syafizal Hakimi 1413481
+ * 					- Ahmad Hazim  1416735
+ * 					- Azri Abdullah 1419547
+ * 
+ * Hello and welcome to KAHA TUITION MANAGEMENT SYSTEM!. We have developed a flexible system that allows staff to add subjects for the tuition centre and also
+ * for the students! This is the main class where it will execute the login page! Also JavaFX is our choice here and it is very useful and intuitive!
+ */
 public class LogIN extends Application 
 {
 	Label lb_text;

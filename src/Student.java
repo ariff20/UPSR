@@ -4,6 +4,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+/*This is core of the project which is the Student class.Notice the one to many relationship with a collection
+ * of subject objects as the class attribute.
+ */
 public class Student 
 {
 	protected String name;
@@ -21,7 +24,8 @@ public class Student
 	{
 		this.name = name;
 		this.ID = ID;
-		this.year = year;	
+		this.year = year;
+		collectionz.add(new Subject("Bahasa Malaysia","BM501","Cikgu Suraya",55.55));
 	}
 	public void setName(String name)
 	{

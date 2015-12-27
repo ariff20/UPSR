@@ -16,6 +16,9 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/*This is the class where the staff can add a subject for the student!
+ * 
+ */
 public class AddSubject extends Stage {
 
 	private Student student;

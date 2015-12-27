@@ -14,6 +14,9 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/*This is another GUI class where the staff can add a brand new subject
+ * 
+ */
 public class AddNewSubject extends Stage
 {
 	public AddNewSubject()
